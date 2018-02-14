@@ -4,7 +4,7 @@ A simple react application to showcase a Web Search results from multiple api(wi
 ## Installation
 To get started, open terminal and do-what-i-say
 ```bash
-$ git clone https://github.com/dreamweiver/react-redux_registration_form 
+$ git https://github.com/dreamweiver/react-web-search-form
   or
   <extract bundle>
 $ npm install
