@@ -5,8 +5,6 @@ A simple react application to showcase a Web Search results from multiple api(wi
 To get started, open terminal and do-what-i-say
 ```bash
 $ git https://github.com/dreamweiver/react-web-search-form
-  or
-  <extract bundle>
 $ npm install
 ```
 
