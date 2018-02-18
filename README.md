@@ -1,4 +1,4 @@
-## K15t Coding Challenge - WebSearch form using Reactjs
+## WebSearch form using Reactjs
 A simple react application to showcase a Web Search results from multiple api(wiki, DuckDuckGo) form with autocomplete feature.
 
 ## Installation
