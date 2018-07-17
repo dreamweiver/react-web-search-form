@@ -53,7 +53,7 @@ class WebSearch extends Component {
           console.info("combined api web serach results:",  self.state.webResults);
 
       })).catch(function (error) {
-        console.info(" Api calls failed, check error response for more info:",error);
+        console.info(" Web search engine calls (wiki/duckduckgo) failed, check error response for more info:", error);
       });
     }
     
@@ -76,7 +76,7 @@ class WebSearch extends Component {
       }
 
       self.timer = setTimeout(() =>{
-        getAutoSuggestions(searchQuery, self);     //make typeahead call via google api and show to user
+        getAutoSuggestions(searchQuery, self);  //make typeahead call via google api and show to user
       }, 1000);
     }
   }
@@ -96,13 +96,19 @@ class WebSearch extends Component {
     return (
       <div>
         <div className="search_form_section"> 
-            <span></span><span></span><span></span>
-            <input className="search_fld" type="text" tabIndex="1" value={this.state.search} onChange={this.autoSuggest.bind(this)} onBlur={this.clearAutoSuggestions.bind(this)}/>
-            <button  type="submit" onClick={this.updateSearch.bind(this)} tabIndex="2" >Submit </button> 
-            <AutoSuggest suggestions = {this.state.suggestions} onSelection = {this.updateSearch.bind(this)}/>
+            <div className="logo">
+              <span></span><span></span><span></span>
+            </div> 
+            <div className="interaction_section">
+              <div className="fields">
+                <input className="search_fld" type="text" tabIndex="1" value={this.state.search} onChange={this.autoSuggest.bind(this)} onBlur={this.clearAutoSuggestions.bind(this)}/>
+                <button  type="submit" onClick={this.updateSearch.bind(this)} tabIndex="2" >Submit </button>
+              </div>
+              <AutoSuggest suggestions = {this.state.suggestions} onSelection = {this.updateSearch.bind(this)}/>
+            </div>
         </div>
         <hr />
-        <div>
+        <div className="search_results">
           {searchResults.map((result, i) => {
             return <SearchResult key={i} text={result.text} iconUrl={result.apiIconUrl} redirectLink={result.url} />
           })}

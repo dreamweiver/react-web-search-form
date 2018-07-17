@@ -1,31 +1,6 @@
 .App {
-  text-align: center;
+  /*text-align: center;*/
 }
-
-/*.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}*/
 
 /*new css styles*/
 .api_logo {
@@ -64,6 +39,32 @@
   color:black;
 }
 
+.search_form_section {
+  display: flex;
+}
+
+.logo {
+  flex:2;
+  padding:10px;
+}
+
+.interaction_section {
+  flex:8;
+}
+
+.fields {
+  display: flex;
+}
+
+.fields input {
+  flex:8;
+}
+
+.fields button {
+  flex:2;
+  margin-left:10px;
+}
+
 .search_form_section > *{
   margin :25px;
 }
@@ -85,7 +86,6 @@
   background-color:#009DE0;
   cursor:pointer;
   font-size:15px;
-  margin-left:5px;
 }
 
 .search_form_section span{
@@ -107,12 +107,21 @@
   background-color :#009DE0;
 }
 
+.search_results {
+  height: calc(100vh - 110px);
+  overflow-y: scroll;
+}
 .search_fld {
  background: url(search_icon.svg) no-repeat top left;
     background-size: 40px 40px;
 }
 
-button:focus, input:focus {
+.search_fld:focus {
+  outline :none;
+  box-shadow:2px 2px lightgrey;
+}
+
+button:focus{  
   outline :none;
   box-shadow: 0 0 0 1pt #808080;
   border:1px solid #808080;
@@ -127,25 +136,24 @@ button[disabled]{
   border-style:solid ;
   border-color:lightgrey;
   background-color:#fff;
-      border-radius:5px;
+  border-radius:5px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-
   position: absolute;
-  margin:5px;
-      left: 498px;
-    top: 58px;
-    border-width:1px;
-    z-index:3;
-
-  }
+  top: 63px;
+  border-width:1px;
+  z-index:3;
+  box-shadow: 1px 3px 9px 3px lightgrey;
+}
 
 .autoSuggest div {
-  padding:5px;
-}
+  padding: 5px  8px;
+  text-align: left;
+} 
 
 .autoSuggest div:hover {
   cursor:pointer;
   text-decoration: underline;
-  background-color:#ededed;
+  background-color:#7fbf7f;
+  color:#fff;
 }

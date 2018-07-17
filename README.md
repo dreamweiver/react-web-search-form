@@ -31,9 +31,9 @@ To know the actual code coverage,run  below npm command
 $ npm run test-coverage
 ```
 
-To generate production level code(budled/minified),run  below npm command
+To generate production level code(bundled => minified => uglified),run below npm command
 ```bash
-$ npm build
+$ npm run build
 ```
 
 

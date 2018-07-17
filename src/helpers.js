@@ -19,7 +19,6 @@
 
   //extract & map the webresults for specific api type 
   export const extractSearchResults = (results, apiType) => {
-    console.info("raw api results,", apiType,":", results);
     if(apiType === 'wiki') {
       return results.query.search.map( result => {
           const url = 'https://en.wikipedia.org/wiki/'+result.title;
