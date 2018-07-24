@@ -62,11 +62,11 @@
 
 .fields button {
   flex:2;
-  margin-left:10px;
+  margin-left:20px;
 }
 
 .search_form_section > *{
-  margin :25px;
+  margin : calc(1%);
 }
 
 .search_form_section input {
@@ -79,7 +79,6 @@
 
 .search_form_section button {
   width:100px;
-  height: 40px;
   border: 1px solid #009DE0;
   color:#fff;
   border-radius:5px;
@@ -89,7 +88,7 @@
 }
 
 .search_form_section span{
-  width:20px;
+  width: calc((100% - 2%) / 3);
   height:10px;
   display:inline-block;
   margin :0;

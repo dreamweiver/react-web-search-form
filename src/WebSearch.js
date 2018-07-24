@@ -102,7 +102,7 @@ class WebSearch extends Component {
             <div className="interaction_section">
               <div className="fields">
                 <input className="search_fld" type="text" tabIndex="1" value={this.state.search} onChange={this.autoSuggest.bind(this)} onBlur={this.clearAutoSuggestions.bind(this)}/>
-                <button  type="submit" onClick={this.updateSearch.bind(this)} tabIndex="2" >Submit </button>
+                <button  type="submit" onClick={this.updateSearch.bind(this)} tabIndex="2" > Search </button>
               </div>
               <AutoSuggest suggestions = {this.state.suggestions} onSelection = {this.updateSearch.bind(this)}/>
             </div>
