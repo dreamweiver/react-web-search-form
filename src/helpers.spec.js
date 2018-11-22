@@ -1,4 +1,4 @@
-import {formatSearchQuery, extractSearchResults, getAutoSuggestions, getWikiResults, getDuckDuckGoResults} from './helpers';
+import {mapSearchResults, getWebResults, getAutoSuggestions} from './helpers';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
@@ -103,32 +103,6 @@ const autoSuggestionsMockData = ["maserati",
 
 describe("Helpers Unit test cases", () => {
 
-	it('Format search query: search query(multiple words) with should be formatted succesfully', () => {
-		//prepare
-		const query = "tony stark";
-
-		//execute
-		const actualFormattedQuery = formatSearchQuery(query);
-		const expectedFormattedQuery = 'tony+stark';
-
-		//assert
-	    expect(expectedFormattedQuery).toEqual(actualFormattedQuery);
-
-	});
-
-	it('Format search query: search query(single word) with should be formatted succesfully', () => {
-		//prepare
-		const query = "maserati";
-
-		//execute
-		const actualFormattedQuery = formatSearchQuery(query);
-		const expectedFormattedQuery = 'maserati';
-
-		//assert
-	    expect(expectedFormattedQuery).toEqual(actualFormattedQuery);
-
-	});
-
 	beforeEach(() => {
 	  mockAdap = new MockAdapter(axios);
 	});
@@ -138,97 +112,57 @@ describe("Helpers Unit test cases", () => {
 	});
 
 
-
-	// verify ajax call to wiki api
-	it('verify ajax call: getWikiResults ajax call should return a promise', () => {
+	// verify ajax Auto suggestions
+	it('Get Auto Suggestions from google api', () => {
 		//prepare
 		const searchQuery = 'maserati'
-		const getWikiResultsApiUrl = 'https://en.wikipedia.org/w/api.php?action=query&list=search&origin=*&utf8=&format=json&srsearch='+searchQuery;
+		const autoSuggestUrl = "http://suggestqueries.google.com/complete/search?client=chrome&q="+searchQuery; 
+		const autoSuggestionsLimit = 10;
+
+	    //construct mock data for  axios ajax call
+		const mockAdap = new MockAdapter(axios);
+	    
+		//stubbing post request with mock data
+	    mockAdap.onGet(autoSuggestUrl).reply(200, autoSuggestionsMockData);
+
+		//execute 
+		const actualPromise = getAutoSuggestions(searchQuery, autoSuggestionsLimit);
+		const expectedPromise = new Promise(function(resolve, reject) {
+									//empty function for UT
+								});
+		let actualAutoSuggestions;
+		let expectedAutoSuggestions = autoSuggestionsMockData[1].slice(0, autoSuggestionsLimit);
+
+		//assert
+		expect(actualPromise).toEqual(expectedPromise);
+		return expect(actualPromise).resolves.toEqual(expect.arrayContaining(expectedAutoSuggestions));
+	});
+
+
+	// verify extract web results  from wiki and duckduckgo api
+	it('Get Web Search results from wiki & duckDuckGo api', () => {
+		//prepare
+		const searchQuery = 'maserati'
+		const getWikiResultsApiUrl = 'https://en.wikipedia.org/w/api.php?action=query&list=search&origin=*&utf8=&format=json&srsearch='+ searchQuery;
+		const getDuckDuckGoResultsApiUrl = 'http://api.duckduckgo.com/?q='+ searchQuery +'&format=json&skip_disambig=1&origin=http://localhost:3000';
+
+	    //construct mock data for  axios ajax call
+		const mockAdap = new MockAdapter(axios);
 	    
 		//stubbing post request with mock data
 	    mockAdap.onGet(getWikiResultsApiUrl).reply(200, wikiMockData);
-
-
-		//execute 
-		const actualPromise = getWikiResults(searchQuery);
-		const expectedPromise = new Promise(function(resolve, reject) {
-			//empty function for UT
-		});
-
-		//assert
-	     expect(expectedPromise).toEqual(actualPromise);
-
-	     
-
-	});
-
-	// verify ajax call to wiki api
-	it('verify ajax call: getDuckDuckGoResults ajax call should return a promise', () => {
-		//prepare
-		const searchQuery = 'maserati'
-		const getDuckDuckGoResultsApiUrl = 'http://api.duckduckgo.com/?q='+ searchQuery +'&format=json&skip_disambig=1&origin=http://localhost:3000';
-	    
-		//stubbing post request with mock data
 	    mockAdap.onGet(getDuckDuckGoResultsApiUrl).reply(200, duckDuckGoMockData);
 
-
 		//execute 
-		const actualPromise = getDuckDuckGoResults(searchQuery);
+		const actualPromise = getWebResults(searchQuery);
 		const expectedPromise = new Promise(function(resolve, reject) {
-			//empty function for UT
-		});
+									//empty function for UT
+								});
+		let actualWebResults;
+		let expectedWebResults = mapSearchResults(wikiMockData, duckDuckGoMockData);
 
 		//assert
-	     expect(expectedPromise).toEqual(actualPromise);
-
-	     
-
+		expect(actualPromise).toEqual(expectedPromise);
+		return expect(actualPromise).resolves.toEqual(expect.arrayContaining(expectedWebResults));
 	});
-
-
-	// verify ajax call to wiki api
-	it('extract results from json: map results from wiki api', () => {
-		//prepare
-		const searchQuery = 'maserati'
-		const getWikiResultsApiUrl = 'https://en.wikipedia.org/w/api.php?action=query&list=search&origin=*&utf8=&format=json&srsearch='+searchQuery;
-
-
-	    //construct mock data for  axios ajax call
-		const mockAdap = new MockAdapter(axios);
-	    
-		//stubbing post request with mock data
-	    mockAdap.onGet(getWikiResultsApiUrl).reply(200, wikiMockData);
-
-
-		//execute 
-		const actualData = extractSearchResults(wikiMockData, 'wiki');
-		const expectedData = wikiMockData.query.search;
-
-		//assert
-	    expect(actualData.length).toEqual(expectedData.length);
-	});
-
-
-	// verify ajax call to wiki api
-	it('extract results from json: map results from duckDuckGo api', () => {
-		//prepare
-		const searchQuery = 'maserati'
-		const getWikiResultsApiUrl = 'http://api.duckduckgo.com/?q='+ searchQuery +'&format=json&skip_disambig=1&origin=http://localhost:3000';
-
-
-	    //construct mock data for  axios ajax call
-		const mockAdap = new MockAdapter(axios);
-	    
-		//stubbing post request with mock data
-	    mockAdap.onGet(getWikiResultsApiUrl).reply(200, duckDuckGoMockData);
-
-
-		//execute 
-		const actualData = extractSearchResults(duckDuckGoMockData, 'duckDuckGo');
-		const expectedData = duckDuckGoMockData.RelatedTopics;
-
-		//assert
-	    expect(actualData.length).toEqual(expectedData.length);
-	});
-
 });

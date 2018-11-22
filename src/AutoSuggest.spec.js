@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {shallow} from 'enzyme';
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import AutoSuggest from './AutoSuggest';
+import {AutoSuggest} from './AutoSuggest';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -18,7 +18,7 @@ Enzyme.configure({ adapter: new Adapter() });
   	}
   };
 
- describe("Auto Sugest Unit test cases", () => {
+ describe("Auto Suggest Unit test cases", () => {
 
 	it('Auto Suggest component renders without crashing', () => {
 	  const div = document.createElement('div');
