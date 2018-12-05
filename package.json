@@ -11,10 +11,12 @@
     "axios": "^0.17.1",
     "axios-mock-adapter": "^1.15.0",
     "hoek": "^5.0.3",
+    "merge": "^1.2.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "^1.1.4",
-    "striptags": "2.1.1"
+    "striptags": "2.1.1",
+    "url-parse": "^1.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
